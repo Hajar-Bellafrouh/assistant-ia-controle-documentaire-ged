@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — GDS GED Services</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav-row">
+    <a href="index.html" class="brand">
+      <img src="logo-gds.png" alt="GDS GED Services" class="logo-mark">
+      <strong>GDS GED Services</strong>
+    </a>
+    <nav class="links">
+      <a href="index.html">Accueil</a>
+      <a href="services.html">Solutions</a>
+      <a href="processus.html">Processus</a>
+      <a href="a-propos.html">À propos</a>
+      <a href="contact.html" class="current">Contact</a>
+      <a href="#" class="btn coral" id="controle-link">Contrôle</a>
+      <a href="#" class="btn solid" id="assistant-link">Assistant IA</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<section class="hero" style="padding:56px 0 40px;">
+  <div class="blob"></div>
+  <div class="wrap">
+    <div class="inner">
+      <span class="tag" style="justify-content:center;">Contact</span>
+      <h1 style="font-size:clamp(2rem,4vw,2.6rem);">Parlons-en.</h1>
+      <p class="lead">Décrivez votre besoin — volume, type de dossiers, délai — et nous revenons vers vous.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap contact-grid">
+    <form class="contact" action="mailto:contact@gds-ged.ma" method="post" enctype="text/plain">
+      <div><label for="name">Nom</label><input type="text" id="name" name="name" required></div>
+      <div><label for="email">E-mail</label><input type="email" id="email" name="email" required></div>
+      <div><label for="message">Message</label><textarea id="message" name="message" required></textarea></div>
+      <button type="submit" class="btn coral">Envoyer</button>
+    </form>
+
+    <div class="contact-card">
+      <div class="def-row"><div class="k">E-mail</div><p class="v">contact@gds-ged.ma</p></div>
+      <div class="def-row"><div class="k">Téléphone</div><p class="v">+212 5 22 00 00 00</p></div>
+      <div class="def-row"><div class="k">Adresse</div><p class="v">Casablanca, Maroc</p></div>
+      <p style="margin-top:20px;"><a href="#" id="assistant-link-2">Ouvrir l'assistant IA →</a></p>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-row">
+      <a href="index.html" class="brand">
+        <img src="logo-gds.png" alt="GDS GED Services" class="logo-mark">
+        <strong>GDS GED Services</strong>
+      </a>
+      <nav>
+        <a href="index.html">Accueil</a>
+        <a href="services.html">Solutions</a>
+        <a href="processus.html">Processus</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="contact.html">Contact</a>
+        <a href="#" id="controle-link-footer">Contrôle documentaire</a>
+        <a href="#" id="assistant-link-footer">Assistant IA</a>
+      </nav>
+    </div>
+    <p class="fine-print">© 2026 GDS GED Services S.A. — Filiale de DocuPrint, Groupe BANK OF AFRICA. Casablanca, Maroc.</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

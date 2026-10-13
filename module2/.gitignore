@@ -1,0 +1,27 @@
+# Environnement virtuel
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Données — volumineuses et potentiellement sensibles (données inventées,
+# mais on ne pousse pas des Go de PDF/JSON dans le dépôt Git)
+data/Dataset_maladie/*
+!data/Dataset_maladie/.gitkeep
+data/Dataset_dentaire/*
+!data/Dataset_dentaire/.gitkeep
+
+# Résultats intermédiaires générés
+outputs/ocr_results/*
+!outputs/ocr_results/.gitkeep
+outputs/field_results/
+
+# VS Code / Jupyter
+.vscode/
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db

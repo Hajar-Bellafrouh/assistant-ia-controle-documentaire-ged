@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solutions — GDS GED Services</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav-row">
+    <a href="index.html" class="brand">
+      <img src="logo-gds.png" alt="GDS GED Services" class="logo-mark">
+      <strong>GDS GED Services</strong>
+    </a>
+    <nav class="links">
+      <a href="index.html">Accueil</a>
+      <a href="services.html" class="current">Solutions</a>
+      <a href="processus.html">Processus</a>
+      <a href="a-propos.html">À propos</a>
+      <a href="contact.html">Contact</a>
+      <a href="#" class="btn coral" id="controle-link">Contrôle</a>
+      <a href="#" class="btn solid" id="assistant-link">Assistant IA</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<section class="hero" style="padding:56px 0 40px;">
+  <div class="blob"></div>
+  <div class="wrap">
+    <div class="inner">
+      <span class="tag" style="justify-content:center;">Solutions</span>
+      <h1 style="font-size:clamp(2rem,4vw,2.6rem);">Ce que nous faisons.</h1>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="card-grid">
+      <div class="acc-card">
+        <div class="swatch" style="background:var(--mint);"></div>
+        <h3>Numérisation &amp; indexation</h3>
+        <p>Documents papier transformés en fonds numérique structuré.</p>
+      </div>
+      <div class="acc-card">
+        <div class="swatch" style="background:var(--cyan);"></div>
+        <h3>Archivage électronique</h3>
+        <p>Classement conforme, conservation sécurisée.</p>
+      </div>
+      <div class="acc-card">
+        <div class="swatch" style="background:var(--coral);"></div>
+        <h3>Dématérialisation</h3>
+        <p>Processus documentaires transformés en flux numériques.</p>
+      </div>
+      <div class="acc-card">
+        <div class="swatch" style="background:var(--mint-deep);"></div>
+        <h3>Consultation &amp; traçabilité</h3>
+        <p>Retrouver un document et son historique en quelques instants.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="surface">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="tag">Intelligence artificielle</p>
+      <h2>Deux modules complémentaires</h2>
+    </div>
+    <div class="card-grid">
+      <div class="acc-card">
+        <span class="pill-tag" style="background:#F5E9CC; color:var(--mint-deep);">Module 1 · Actif</span>
+        <h3>Assistant documentaire</h3>
+        <p>Recherche sémantique (RAG) sur la documentation interne — procédures, ateliers.</p>
+        <p style="margin-top:16px;"><a href="#" id="assistant-link-4" class="btn solid">Ouvrir l'assistant →</a></p>
+      </div>
+    <div class="acc-card">
+      <span class="pill-tag" style="background:#F3E4C2; color:var(--coral-deep);">Module 2 · Actif</span>
+      <h3>Contrôle documentaire</h3>
+      <p>Détection automatique d'incohérences dans les dossiers numérisés : champs, dates, numéros, pages dupliquées.</p>
+      <p style="margin-top:16px;"><a href="#" id="controle-link-4" class="btn coral">Ouvrir le module →</a></p>
+    </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-row">
+      <a href="index.html" class="brand">
+        <img src="logo-gds.png" alt="GDS GED Services" class="logo-mark">
+        <strong>GDS GED Services</strong>
+      </a>
+      <nav>
+        <a href="index.html">Accueil</a>
+        <a href="services.html">Solutions</a>
+        <a href="processus.html">Processus</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="contact.html">Contact</a>
+        <a href="#" id="controle-link-footer">Contrôle documentaire</a>
+        <a href="#" id="assistant-link-footer">Assistant IA</a>
+      </nav>
+    </div>
+    <p class="fine-print">© 2026 GDS GED Services S.A. — Filiale de DocuPrint, Groupe BANK OF AFRICA. Casablanca, Maroc.</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

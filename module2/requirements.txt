@@ -1,0 +1,12 @@
+paddlepaddle==3.3.0
+paddleocr
+pymupdf
+opencv-python
+numpy
+pandas
+ipykernel
+rapidfuzz
+matplotlib
+fastapi
+uvicorn[standard]
+python-multipart

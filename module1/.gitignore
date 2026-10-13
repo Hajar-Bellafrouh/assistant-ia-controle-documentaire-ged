@@ -1,0 +1,10 @@
+venv/
+venv-ged-rag/
+__pycache__/
+*.pyc
+faiss_index/
+feedback.db
+.env
+.DS_Store
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/

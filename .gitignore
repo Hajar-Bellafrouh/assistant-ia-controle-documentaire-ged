@@ -1,0 +1,22 @@
+# Ce .gitignore racine complète ceux de module1/ et module2/
+# (chacun garde ses propres règles spécifiques à ses données)
+
+# Environnements virtuels à la racine, si présents
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# IDE / notebooks
+.vscode/
+.idea/
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets globaux, si un .env existe à la racine
+.env

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contrôle documentaire — GDS GED Services</title>
+<meta name="description" content="Module 2 — vérification automatique de cohérence d'un dossier scanné : nom, CIN, dates, numéros, pages dupliquées.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="cd-shell">
+
+  <!-- Reliure — identité du module, index des étapes -->
+  <aside class="cd-spine">
+    <a href="../../rag-assistant-ged/gds-site/index.html" class="cd-spine__brand" title="Retour au site GDS GED Services">
+      <img src="logo-gds.png" alt="GDS GED Services">
+    </a>
+    <a href="../../rag-assistant-ged/gds-site/index.html" class="cd-spine__retour" title="Retour au site" aria-label="Retour au site">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </a>
+
+    <ol class="cd-spine__etapes">
+      <li><span class="cd-spine__num">I</span><span class="cd-spine__label">Dépôt</span></li>
+      <li><span class="cd-spine__num">II</span><span class="cd-spine__label">Lecture</span></li>
+      <li><span class="cd-spine__num">III</span><span class="cd-spine__label">Verdict</span></li>
+    </ol>
+
+    <div class="cd-spine__statut" id="cd-statut-api">
+      <span class="cd-dot" id="cd-statut-point"></span>
+      <span id="cd-statut-texte">Connexion…</span>
+    </div>
+  </aside>
+
+  <div class="cd-page">
+
+    <header class="cd-lede">
+      <div class="wrap">
+        <span class="cd-eyebrow">Module 2 — Contrôle documentaire</span>
+        <h1>Vérification de cohérence</h1>
+        <p>Nom, CIN, dates, numéros de dossier et pages dupliquées, comparés entre les pages d'un même dossier avant son archivage.</p>
+      </div>
+    </header>
+
+    <section class="cd-body">
+      <div class="wrap">
+        <main class="cd-main">
+
+          <!-- Zone de dépôt -->
+          <section class="cd-sheet" id="cd-zone-depot">
+            <div class="cd-dropzone" id="cd-dropzone" tabindex="0" role="button" aria-label="Déposer ou choisir un dossier PDF">
+              <svg class="cd-dropzone__icone" width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3v12m0 0-4-4m4 4 4-4M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <p class="cd-dropzone__texte">
+                <strong>Dépose un dossier PDF</strong> ou clique pour parcourir
+              </p>
+              <p class="cd-dropzone__sous-texte">Feuille de soins, ordonnance, facture — un ou plusieurs fichiers PDF</p>
+              <input type="file" id="cd-input-fichier" accept="application/pdf" multiple hidden>
+            </div>
+
+            <div class="cd-fichier-choisi" id="cd-fichier-choisi" hidden>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; color:var(--mint-deep);"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span class="cd-fichier-choisi__nom" id="cd-fichier-nom"></span>
+              <button type="button" class="cd-lien-bouton" id="cd-retirer-fichier">Retirer</button>
+            </div>
+
+            <button type="button" class="cd-bouton cd-bouton--principal" id="cd-bouton-analyser" disabled>
+              Analyser le dossier
+            </button>
+
+            <p class="cd-note">L'analyse OCR prend en général 1 à 4 minutes selon le nombre de pages.</p>
+          </section>
+
+          <!-- État de progression -->
+          <section class="cd-sheet cd-progression" id="cd-progression" hidden>
+            <div class="cd-spinner" aria-hidden="true"></div>
+            <div style="flex:1; min-width:0;">
+              <p class="cd-progression__titre">Analyse en cours</p>
+              <p class="cd-progression__detail">
+                <span id="cd-fichier-en-cours"></span> — <span id="cd-chrono">0s</span> écoulées
+              </p>
+              <div class="cd-barre-progression">
+                <div class="cd-barre-progression__remplissage" id="cd-barre-remplissage" style="width:0%"></div>
+              </div>
+              <p class="cd-progression__pourcentage" id="cd-progression-pourcentage">Page 0 / —</p>
+            </div>
+          </section>
+
+          <!-- Traitement par lot -->
+          <section class="cd-sheet cd-lot" id="cd-lot" hidden>
+            <h2 class="cd-section-titre">Traitement du lot</h2>
+            <table class="cd-registre">
+              <thead>
+                <tr><th>Dossier</th><th>Statut</th><th>Verdict</th><th>Pages</th><th>Temps</th><th></th></tr>
+              </thead>
+              <tbody id="cd-lot-corps"></tbody>
+            </table>
+            <button type="button" class="cd-bouton cd-bouton--discret" id="cd-lot-nouvelle-analyse" hidden>Analyser un autre lot</button>
+          </section>
+
+          <!-- Erreur -->
+          <section class="cd-sheet cd-erreur" id="cd-erreur" hidden>
+            <p class="cd-erreur__titre">L'analyse n'a pas pu aboutir</p>
+            <p class="cd-erreur__detail" id="cd-erreur-detail"></p>
+            <button type="button" class="cd-bouton cd-bouton--discret" id="cd-erreur-reessayer">Réessayer</button>
+          </section>
+
+          <!-- Résultat -->
+          <section class="cd-sheet cd-resultat" id="cd-resultat" hidden>
+
+            <button type="button" class="cd-retour-lien" id="cd-retour-lot" hidden>← Retour au tableau du lot</button>
+
+            <div class="cd-tampon" id="cd-tampon">
+              <span class="cd-tampon__label" id="cd-tampon-label">COHÉRENT</span>
+            </div>
+
+            <dl class="cd-meta">
+              <div><dt>Dossier</dt><dd id="cd-meta-fichier">—</dd></div>
+              <div><dt>Pages analysées</dt><dd id="cd-meta-pages">—</dd></div>
+              <div><dt>Durée d'analyse</dt><dd id="cd-meta-duree">—</dd></div>
+            </dl>
+
+            <div id="cd-bloc-anomalies" hidden>
+              <h2 class="cd-section-titre">Champs incohérents entre les pages</h2>
+              <table class="cd-registre">
+                <thead>
+                  <tr>
+                    <th>Champ</th>
+                    <th>Page réf.</th>
+                    <th>Valeur référence</th>
+                    <th>Page suspecte</th>
+                    <th>Valeur trouvée</th>
+                    <th>Score</th>
+                  </tr>
+                </thead>
+                <tbody id="cd-registre-corps"></tbody>
+              </table>
+            </div>
+
+            <div id="cd-bloc-doublons" hidden>
+              <h2 class="cd-section-titre">Pages probablement dupliquées</h2>
+              <ul class="cd-liste-doublons" id="cd-liste-doublons"></ul>
+            </div>
+
+            <details class="cd-detail-complet">
+              <summary>Voir le détail complet de toutes les comparaisons</summary>
+              <pre id="cd-json-complet"></pre>
+            </details>
+
+            <button type="button" class="cd-bouton cd-bouton--discret" id="cd-nouvelle-analyse">Analyser un autre dossier</button>
+          </section>
+
+        </main>
+      </div>
+    </section>
+
+    <footer class="cd-footer">
+      <div class="wrap">
+        <span>GDS GED Services — Module 2, Contrôle documentaire</span>
+        <span>© 2026</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<script src="controle-documentaire.js"></script>
+</body>
+</html>

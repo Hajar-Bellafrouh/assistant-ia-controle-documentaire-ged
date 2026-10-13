@@ -1,0 +1,372 @@
+/* ==========================================================================
+   Contrôle documentaire — Module 2
+   Identité "registre d'inspection" : reliure sombre à onglets numérotés,
+   contenu posé sur une feuille, tampon de vérification en relief.
+   Palette strictement identique à GDS GED Services ; traitement graphique
+   volontairement différent du reste du site.
+   ========================================================================== */
+
+:root {
+  --mint: #1B3A66;
+  --mint-deep: #0F2247;
+  --coral: #C89B3C;
+  --coral-deep: #A97D2E;
+  --ink: #1F2733;
+  --ink-soft: #6B7280;
+  --bg: #F6F3EC;
+  --surface: #FFFFFF;
+  --line: #E4E1D6;
+  --ok: #2E6B44;
+  --ok-bg: #EAF2EC;
+  --bad: #8C3A2B;
+  --bad-bg: #F6EBE7;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 40px; }
+
+/* ---------------------------------------------------------------- Frame */
+
+.cd-shell { display: flex; min-height: 100vh; align-items: stretch; }
+
+.cd-page { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
+/* ---------------------------------------------------------- La reliure */
+
+.cd-spine {
+  flex: 0 0 128px;
+  background: var(--mint-deep);
+  background-image:
+    linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 12%),
+    repeating-linear-gradient(180deg, rgba(255,255,255,0.025) 0 1px, transparent 1px 26px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 26px 0 22px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.cd-spine__brand {
+  width: 40px; height: 40px; border-radius: 10px;
+  overflow: hidden; flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.cd-spine__brand img { width: 100%; height: 100%; object-fit: cover; }
+
+.cd-spine__retour {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(230,236,247,0.75);
+  border: 1px solid rgba(255,255,255,0.2);
+  margin-top: 14px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.cd-spine__retour svg { width: 15px; height: 15px; }
+.cd-spine__retour:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+.cd-spine__etapes {
+  list-style: none; margin: 0; padding: 0;
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 34px;
+  position: relative;
+}
+.cd-spine__etapes::before {
+  content: "";
+  position: absolute; left: 50%; top: 4px; bottom: 4px; width: 1px;
+  background: rgba(255,255,255,0.14);
+  transform: translateX(-50%);
+}
+.cd-spine__etapes li {
+  display: flex; flex-direction: column; align-items: center; gap: 7px;
+  position: relative; z-index: 1;
+}
+.cd-spine__num {
+  font-family: "Fraunces", serif; font-weight: 600; font-size: 1.05rem;
+  color: var(--coral);
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--mint-deep);
+  border: 1px solid rgba(200,155,60,0.5);
+}
+.cd-spine__label {
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.02em;
+  color: rgba(230,236,247,0.55);
+  text-align: center;
+}
+
+.cd-spine__statut {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  font-size: 0.62rem; color: rgba(230,236,247,0.55); text-align: center;
+  padding: 0 6px;
+}
+.cd-dot { width: 7px; height: 7px; border-radius: 50%; background: #7C8AA6; flex-shrink: 0; }
+.cd-dot--pret { background: #3FCB79; }
+.cd-dot--hors-service { background: #E2685A; }
+
+/* ------------------------------------------------------------- Lede/en-tête */
+
+.cd-lede { padding: 60px 0 26px; }
+.cd-eyebrow {
+  display: block;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.76rem; color: var(--coral-deep); font-weight: 500;
+  margin-bottom: 16px;
+}
+.cd-lede h1 {
+  font-family: "Fraunces", serif; font-weight: 600;
+  font-size: clamp(2rem, 4vw, 2.65rem); line-height: 1.1;
+  letter-spacing: -0.01em; margin: 0 0 14px; color: var(--ink);
+}
+.cd-lede p { color: var(--ink-soft); font-size: 1.02rem; max-width: 54ch; }
+
+/* -------------------------------------------------------------- Corps */
+
+.cd-body { padding: 8px 0 70px; }
+
+.cd-main { display: flex; flex-direction: column; gap: 26px; position: relative; }
+
+.cd-sheet {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  box-shadow: 0 1px 1px rgba(31,39,51,0.04), 0 22px 34px -26px rgba(31,39,51,0.35);
+  padding: 34px 38px;
+  position: relative;
+}
+.cd-sheet::before {
+  content: "";
+  position: absolute; top: 0; left: 36px; right: 36px; height: 3px;
+  background: var(--coral);
+  border-radius: 0 0 2px 2px;
+}
+.cd-progression::before { background: var(--mint); }
+.cd-erreur::before { background: var(--bad); }
+
+/* ------------------------------------------------------------- Dropzone */
+
+.cd-dropzone {
+  border: 1px dashed var(--line);
+  border-radius: 2px;
+  padding: 46px 24px; text-align: center; cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.cd-dropzone:hover, .cd-dropzone:focus-visible {
+  border-color: var(--coral-deep); background: #FBF6EA; outline: none;
+}
+.cd-dropzone--survol { border-color: var(--coral-deep); background: #FBF6EA; }
+.cd-dropzone__icone { color: var(--mint-deep); margin-bottom: 14px; }
+.cd-dropzone__texte { margin: 0 0 5px; font-size: 1rem; color: var(--ink); }
+.cd-dropzone__sous-texte { margin: 0; font-size: 0.84rem; color: var(--ink-soft); }
+
+.cd-fichier-choisi {
+  display: flex; align-items: center; gap: 10px; margin-top: 18px;
+  padding: 12px 16px; background: var(--bg); border: 1px solid var(--line);
+  border-radius: 2px; font-size: 0.9rem;
+}
+.cd-fichier-choisi__nom {
+  font-family: "JetBrains Mono", monospace; flex: 1;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink);
+}
+
+/* --------------------------------------------------------------- Boutons */
+
+.cd-bouton {
+  font-family: "Inter", sans-serif; font-size: 0.95rem; font-weight: 600;
+  border-radius: 2px; border: none; padding: 14px 22px; cursor: pointer;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+.cd-bouton--principal {
+  background: var(--mint-deep); color: #fff; width: 100%; margin-top: 20px;
+}
+.cd-bouton--principal:hover:not(:disabled) { background: var(--mint); }
+.cd-bouton--principal:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.cd-bouton--discret { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+.cd-bouton--discret:hover { border-color: var(--mint-deep); color: var(--mint-deep); }
+
+.cd-lien-bouton {
+  background: none; border: none; color: var(--mint-deep);
+  font-size: 0.85rem; font-weight: 600; text-decoration: underline;
+  cursor: pointer; padding: 0;
+}
+
+.cd-retour-lien {
+  background: none; border: none; color: var(--ink-soft);
+  font-size: 0.84rem; font-weight: 600; cursor: pointer; padding: 0;
+  margin-bottom: 20px; display: inline-block;
+}
+.cd-retour-lien:hover { color: var(--mint-deep); }
+
+.cd-note {
+  margin: 18px 0 0; font-size: 0.8rem; color: var(--ink-soft); font-style: italic;
+  font-family: "Fraunces", serif;
+}
+
+/* ----------------------------------------------------------- Progression */
+
+.cd-progression { display: flex; align-items: center; gap: 20px; }
+.cd-spinner {
+  width: 24px; height: 24px; border: 2.5px solid var(--line);
+  border-top-color: var(--mint); border-radius: 50%;
+  animation: cd-tourner 0.8s linear infinite; flex-shrink: 0;
+}
+@keyframes cd-tourner { to { transform: rotate(360deg); } }
+.cd-progression__titre { margin: 0 0 3px; font-weight: 600; font-family: "Fraunces", serif; font-size: 1.05rem; color: var(--ink); }
+.cd-progression__detail { margin: 0 0 12px; font-size: 0.86rem; color: var(--ink-soft); }
+.cd-progression__detail span:first-child { font-family: "JetBrains Mono", monospace; }
+
+.cd-barre-progression { height: 4px; background: var(--line); border-radius: 999px; overflow: hidden; }
+.cd-barre-progression__remplissage { height: 100%; background: var(--coral); transition: width 0.3s ease; }
+.cd-progression__pourcentage { margin: 8px 0 0; font-family: "JetBrains Mono", monospace; font-size: 0.78rem; color: var(--ink-soft); }
+
+/* ---------------------------------------------------------------- Erreur */
+
+.cd-erreur__titre { margin: 0 0 6px; font-weight: 600; font-family: "Fraunces", serif; font-size: 1.1rem; color: var(--bad); }
+.cd-erreur__detail { margin: 0 0 18px; font-size: 0.9rem; color: var(--ink); }
+
+/* --------------------------------------------------------------- Tampon */
+
+.cd-tampon {
+  position: absolute; top: 30px; right: 36px;
+  width: 128px; height: 128px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  padding: 14px;
+  border: 2.5px solid var(--ok); color: var(--ok);
+  transform: rotate(-9deg);
+  background:
+    radial-gradient(circle, transparent 61%, currentColor 61.5% 64%, transparent 64.5%),
+    var(--ok-bg);
+  opacity: 0.94;
+}
+.cd-tampon--incoherent { border-color: var(--bad); color: var(--bad); background: radial-gradient(circle, transparent 61%, currentColor 61.5% 64%, transparent 64.5%), var(--bad-bg); transform: rotate(7deg); }
+.cd-tampon__label {
+  font-family: "Fraunces", serif; font-weight: 600;
+  font-size: 0.8rem; letter-spacing: 0.02em; line-height: 1.2;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ Meta */
+
+.cd-meta {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  margin: 0 0 30px; padding-top: 22px; padding-right: 145px;
+  border-top: 1px solid var(--line);
+}
+.cd-meta div { min-width: 0; }
+.cd-meta dt { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); margin-bottom: 6px; }
+.cd-meta dd {
+  margin: 0; font-family: "JetBrains Mono", monospace; font-size: 0.92rem; color: var(--ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* --------------------------------------------------------------- Registre */
+
+.cd-section-titre {
+  font-family: "Fraunces", serif; font-size: 1.05rem; font-weight: 600;
+  margin: 0 0 16px; color: var(--ink);
+}
+
+.cd-registre { width: 100%; border-collapse: collapse; font-size: 0.86rem; margin-bottom: 28px; }
+.cd-registre th {
+  text-align: left; font-weight: 600; color: var(--ink-soft); font-size: 0.72rem;
+  padding: 8px 12px 10px 0; border-bottom: 1px solid var(--ink);
+}
+.cd-registre td { padding: 13px 12px 13px 0; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink); }
+.cd-registre tbody tr:last-child td { border-bottom: none; }
+.cd-registre td:nth-child(3), .cd-registre td:nth-child(5) { font-family: "JetBrains Mono", monospace; font-size: 0.84rem; }
+.cd-score { font-family: "JetBrains Mono", monospace; font-weight: 700; color: var(--bad); }
+
+.cd-liste-doublons { list-style: none; margin: 0 0 28px; padding: 0; font-family: "JetBrains Mono", monospace; font-size: 0.86rem; }
+.cd-liste-doublons li {
+  padding: 12px 0; border-bottom: 1px solid var(--line); color: var(--ink);
+}
+.cd-liste-doublons li:last-child { border-bottom: none; }
+
+/* -------------------------------------------------- Badges (lot / statut) */
+
+.cd-statut-badge {
+  display: inline-block; font-size: 0.72rem; font-weight: 600;
+  padding: 4px 10px; border-radius: 999px;
+  background: var(--bg); color: var(--ink-soft); border: 1px solid var(--line);
+}
+.cd-statut-badge--en_cours { color: var(--mint-deep); border-color: var(--mint); }
+.cd-statut-badge--termine { color: var(--ok); border-color: var(--ok); }
+.cd-statut-badge--erreur { color: var(--bad); border-color: var(--bad); }
+
+.cd-verdict-badge {
+  display: inline-block; font-family: "Fraunces", serif; font-weight: 600;
+  font-size: 0.72rem; letter-spacing: 0.02em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 2px;
+}
+.cd-verdict-badge--coherent { color: var(--ok); background: var(--ok-bg); }
+.cd-verdict-badge--incoherent { color: var(--bad); background: var(--bad-bg); }
+
+.cd-lien-voir {
+  background: none; border: none; color: var(--mint-deep);
+  font-size: 0.82rem; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;
+}
+
+/* --------------------------------------------------------------- Détail */
+
+.cd-detail-complet { margin-top: 6px; margin-bottom: 24px; }
+.cd-detail-complet summary {
+  cursor: pointer; font-size: 0.84rem; color: var(--mint-deep); font-weight: 600;
+}
+.cd-detail-complet summary:hover { text-decoration: underline; }
+.cd-detail-complet pre {
+  margin-top: 14px; background: var(--mint-deep); color: #E7ECF5;
+  padding: 20px; border-radius: 2px;
+  font-family: "JetBrains Mono", monospace; font-size: 0.78rem;
+  overflow-x: auto; max-height: 320px;
+}
+
+/* ---------- Pied de page ---------- */
+
+.cd-footer { padding: 26px 0 34px; margin-top: auto; }
+.cd-footer .wrap {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  font-size: 0.78rem; color: var(--ink-soft); border-top: 1px solid var(--line); padding-top: 20px;
+}
+
+/* ----------------------------------------------------------- Responsive */
+
+@media (max-width: 860px) {
+  .wrap { padding: 0 24px; }
+}
+
+@media (max-width: 720px) {
+  .cd-shell { flex-direction: column; }
+  .cd-spine {
+    flex-direction: row; height: auto; width: 100%; position: static;
+    padding: 14px 20px; gap: 22px;
+  }
+  .cd-spine__etapes { flex-direction: row; gap: 20px; }
+  .cd-spine__etapes::before { left: 4px; right: 4px; top: 50%; bottom: auto; height: 1px; width: auto; transform: translateY(-50%); }
+  .cd-spine__statut { flex-direction: row; margin-left: auto; }
+  .cd-lede { padding: 34px 0 20px; }
+  .cd-sheet { padding: 26px 22px; }
+  .cd-tampon { position: static; margin: 0 0 22px; transform: rotate(-4deg); }
+  .cd-meta { grid-template-columns: 1fr; gap: 12px; padding-right: 0; }
+  .cd-registre { display: block; overflow-x: auto; white-space: nowrap; }
+}
